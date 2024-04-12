@@ -13,7 +13,7 @@ st.write("Welcome to our career recommendation tool! 🌟 Please keep in mind th
 st.divider()
 st.subheader('Please answer the following questions to get started.')
 with st.form('Survey'):
-    q1 = st.checkbox('I am currently a student or a recent graduate.')
+    q1 = st.toggle('I am willing to attend a 2-year or 4-year university.')
     q2 = st.toggle('I am currently a professional.')
     q3 = st.radio('What is your current level of experience?', ['No experience', 'Less than 1 year', '1-2 years', '3-5 years', '6-10 years', '10+ years'])
     q4 = st.selectbox('What is your current level of education?', ['No education', 'High school', 'Some college', 'Bachelor\'s degree', 'Master\'s degree', 'Doctoral degree'])
