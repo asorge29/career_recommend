@@ -22,7 +22,60 @@ CAREER_OPTIONS = {
     'Construction':[2, 3, 4],
     'Finance':[1, 4],
     'Marketing':[1, 4]
-    }
+}
+
+INTERESTS = {
+    'Art': 101,
+    'Technology': 102,
+    'Science': 103,
+    'Music': 104,
+    'Sports': 105,
+    'Writing': 106,
+    'Cooking': 107,
+    'Fashion': 108,
+    'Health & Fitness': 109,
+    'Photography': 110,
+    'Travel': 111,
+    'Nature & Environment': 112,
+    'History': 113,
+    'Film & Television': 114,
+    'Gaming': 115,
+    'Graphic Design': 116,
+    'Coding': 117,
+    'Psychology': 118,
+    'Dance': 119,
+    'Automobiles': 120,
+    'Entrepreneurship': 121,
+    'Animals & Pets': 122,
+    'Reading': 123,
+    'Social Media': 124,
+    'Astronomy': 125,
+    'Politics': 126,
+    'Sculpture': 127,
+    'Interior Design': 128,
+    'Martial Arts': 129,
+    'Baking': 130,
+    'Graphic Novels & Comics': 131,
+    'Architecture': 132,
+    'Yoga & Meditation': 133,
+    'Aviation': 134,
+    'Cycling': 135,
+    'DIY & Crafts': 136,
+    'Theater': 137,
+    'Urban Planning': 138,
+    'Animation': 139,
+    'Law & Justice': 140,
+    'Foreign Languages': 141,
+    'Fishing': 142,
+    'Board Games': 143,
+    'Education': 144,
+    'Philosophy': 145,
+    'Magic & Illusion': 146,
+    'Camping & Hiking': 147,
+    'Social Work': 148,
+    'Surfing': 149,
+    'DIY Electronics': 150
+}
 
 def eliminate_options(responses: list, options: dict):
     eliminated_options = []
@@ -52,7 +105,7 @@ with st.expander('Survey'):
         q4 = st.toggle('I am willing to work personally with clients.')
         q5 = st.toggle('I am willing to work with children.')
         responses = [q1, q2, q3, q4, q5]
-        interests = st.multiselect('Select all that interest you:', ['Aviation', 'Space', 'Science', 'Technology', 'Reading', 'Travel', 'Building', 'Drawing/Art', 'Gardening', 'The Stock Market', 'Running a Business'])
+        interests = st.multiselect('Select all that interest you:', list(INTERESTS.keys()))
         if st.form_submit_button('Submit'):
             response_numbers = []
             for i in range(len(responses)):
