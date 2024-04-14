@@ -8,7 +8,21 @@ st.set_page_config(
     page_icon='🎓',
 )
 
-CAREER_OPTIONS = {'Aerospace':[1, 2, 3], 'Engineer':[1, 3], 'Architect':[1, 4], 'Military':[2, 3], 'Healthcare':[1, 2, 3, 5], 'Computer Science':[4], 'Environmental Science':[1, 3], 'Cullinary':[2, 4, 5], 'Agriculture':[2, 3], 'Teaching':[1, 4, 5], 'Construction':[2, 3, 4], 'Finance':[1, 4], 'Marketing':[1, 4]}
+CAREER_OPTIONS = {
+    'Aerospace':[1, 2, 3],
+    'Engineer':[1, 3],
+    'Architect':[1, 4],
+    'Military':[2, 3],
+    'Healthcare':[1, 2, 3, 5],
+    'Computer Science':[4],
+    'Environmental Science':[1, 3],
+    'Cullinary':[2, 4, 5],
+    'Agriculture':[2, 3],
+    'Teaching':[1, 4, 5],
+    'Construction':[2, 3, 4],
+    'Finance':[1, 4],
+    'Marketing':[1, 4]
+    }
 
 def eliminate_options(responses: list, options: dict):
     eliminated_options = []
@@ -22,6 +36,9 @@ def eliminate_options(responses: list, options: dict):
         if key not in eliminated_options:
             passed_options.append(key)
     return passed_options, eliminated_options
+
+def sort_by_interest(met_criteria:list, not_met:list, interests):
+    pass
 
 st.title('Career Recommendation System')
 st.write("Welcome to our career recommendation tool! 🌟 Please keep in mind that our algorithm is a work in progress, crafted over just four days with limited data for training. While we've done our best to provide personalized suggestions based on your survey responses, it's important to acknowledge that our results may not be as accurate as we aspire them to be. We're continuously refining our system to improve accuracy and relevance. Thank you for your understanding and patience as we evolve!")
