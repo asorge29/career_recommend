@@ -9,19 +9,19 @@ st.set_page_config(
 )
 
 CAREER_OPTIONS = {
-    'Aerospace':[1, 2, 3],
-    'Engineer':[1, 3],
-    'Architect':[1, 4],
-    'Military':[2, 3],
-    'Healthcare':[1, 2, 3, 5],
-    'Computer Science':[4],
-    'Environmental Science':[1, 3],
-    'Cullinary':[2, 4, 5],
-    'Agriculture':[2, 3],
-    'Teaching':[1, 4, 5],
-    'Construction':[2, 3, 4],
-    'Finance':[1, 4],
-    'Marketing':[1, 4]
+    'Aerospace': [1, 2, 3, 112, 134, 125, 106, 110, 145, 107],
+    'Engineer': [1, 3, 102, 113, 133, 127, 148, 131, 109],
+    'Architect': [1, 4, 102, 127, 132, 110, 111, 116],
+    'Military': [2, 3, 105, 134, 112, 106, 139, 145],
+    'Healthcare': [1, 2, 3, 5, 109, 118, 119, 148, 126, 142],
+    'Computer Science': [4, 102, 117, 106, 103, 101],
+    'Environmental Science': [1, 3, 112, 125, 111, 147, 141, 118],
+    'Culinary': [2, 4, 5, 107, 130, 110, 123, 109, 141, 136],
+    'Agriculture': [2, 3, 112, 141, 146, 148, 130, 110, 142],
+    'Teaching': [1, 4, 5, 144, 123, 113, 148, 136, 141, 107],
+    'Construction': [2, 3, 4, 107, 132, 130, 110, 103, 141, 139],
+    'Finance': [1, 4, 102, 140, 145, 111, 119, 123],
+    'Marketing': [1, 4, 114, 123, 124, 111, 109, 114]
 }
 
 INTERESTS = {
@@ -90,8 +90,18 @@ def eliminate_options(responses: list, options: dict):
             passed_options.append(key)
     return passed_options, eliminated_options
 
-def sort_by_interest(met_criteria:list, not_met:list, interests):
-    pass
+def sort_by_interest(met_criteria:list, not_met:list, careers:dict, interests:list):
+    interest_count = {}
+    if len(met_criteria) > 0:
+       for i in met_criteria:
+           interest_count.update({i:0})
+       for i in range(len(met_criteria)):
+           for j in range(len(interests)):
+               if interests[j] in careers[met_criteria[i]]:
+                    interest_count[met_criteria[i]] += 1
+    print(met_criteria)
+    print(interest_count)
+                   
 
 st.title('Career Recommendation System')
 st.write("Welcome to our career recommendation tool! 🌟 Please keep in mind that our algorithm is a work in progress, crafted over just four days with limited data for training. While we've done our best to provide personalized suggestions based on your survey responses, it's important to acknowledge that our results may not be as accurate as we aspire them to be. We're continuously refining our system to improve accuracy and relevance. Thank you for your understanding and patience as we evolve!")
@@ -107,7 +117,9 @@ with st.expander('Survey'):
         responses = [q1, q2, q3, q4, q5]
         interests = st.multiselect('Select all that interest you:', list(INTERESTS.keys()))
         if st.form_submit_button('Submit'):
+            interests = [INTERESTS[i] for i in interests]
             response_numbers = []
             for i in range(len(responses)):
                 if not responses[i]:
                     response_numbers.append(i + 1)
+            sort_by_interest(eliminate_options(response_numbers, CAREER_OPTIONS)[0], eliminate_options(response_numbers, CAREER_OPTIONS)[1], CAREER_OPTIONS, interests)
