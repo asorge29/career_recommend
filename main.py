@@ -313,24 +313,32 @@ def sort_by_interest(met_criteria:list, not_met:list, careers:dict, interests:li
 def get_career_recommendations(responses: list, interests: list, careers: dict) -> tuple:
     return sort_by_interest(eliminate_options(responses, careers)[0], eliminate_options(responses, careers)[1], careers, interests)
 
+def convert_to_stream(string: str):
+    for word in string.split(' '):
+        sleep(0.05)
+        yield word + ' '
+
 st.title('Career Recommendation System')
 st.write("Welcome to our career recommendation tool! 🌟 Please keep in mind that our algorithm is a work in progress, crafted over just four days with limited data for training. While we've done our best to provide personalized suggestions based on your survey responses, it's important to acknowledge that our results may not be as accurate as we aspire them to be. We're continuously refining our system to improve accuracy and relevance. Thank you for your understanding and patience as we evolve!")
 st.divider()
 st.subheader('Please answer the following questions to get started.')
-with st.expander('Survey'):
-    with st.form('Survey'):
-        q1 = st.toggle('I am willing to attend a 2-year or 4-year university.')
-        q2 = st.toggle('I am willing to work a job with high levels of physical activity.')
-        q3 = st.toggle('I am willing to work in an outdoor environment.')
-        q4 = st.toggle('I am willing to work personally with clients.')
-        q5 = st.toggle('I am willing to work with children.')
-        responses = [q1, q2, q3, q4, q5]
-        interests = st.multiselect('Select all that interest you:', list(INTERESTS.keys()))
-        if st.form_submit_button('Submit'):
-            interests = [INTERESTS[i] for i in interests]
-            response_numbers = []
-            for i in range(len(responses)):
-                if not responses[i]:
-                    response_numbers.append(i + 1)
-            reccomendations = get_career_recommendations(response_numbers, interests, CAREER_OPTIONS)
-            st.write(f'We recommend you further explore {reccomendations[0]} or {reccomendations[1]}.')
+q1 = st.toggle('I am willing to attend a 2-year or 4-year university.')
+q2 = st.toggle('I am willing to work a job with high levels of physical activity.')
+q3 = st.toggle('I am willing to work in an outdoor environment.')
+q4 = st.toggle('I am willing to work personally with clients.')
+q5 = st.toggle('I am willing to work with children.')
+responses = [q1, q2, q3, q4, q5]
+interests = st.multiselect('Select all that interest you:', list(INTERESTS.keys()))
+interests = [INTERESTS[i] for i in interests]
+response_numbers = []
+for i in range(len(responses)):
+    if not responses[i]:
+        response_numbers.append(i + 1)
+reccomendations = get_career_recommendations(response_numbers, interests, CAREER_OPTIONS)
+columns = st.columns(2)
+with columns[0]:
+    st.subheader('Career Recommendation')
+    st.write_stream(convert_to_stream(f'We recommend you {reccomendations[0]} as your career.'))
+with columns[1]:
+    st.subheader('Career Recommendation')
+    st.write_stream(convert_to_stream(f'We also recommend you {reccomendations[1]} as your career.'))
